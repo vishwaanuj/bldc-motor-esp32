@@ -30,7 +30,7 @@ The present git consists of three folders for individual uses:
 # --Theory--
 <img width="394" alt="Capture" src="https://user-images.githubusercontent.com/28966259/118945734-5b5aff80-b973-11eb-8eaa-ff4f657d1c7a.PNG">
 
-As it is pretty obvious that we can use Our primary current which could in range of 30A,50A,100A etc. (Ip in fig.) as it might fry up our microcontroller we would using Secondry current as our medium (Is in fig) to give us an idea. For that to happen we will require an Burden resistor as shown. So the main idea is to measure the voltage across the burden resistor through our microcontroller and in turn get the current readings (V->secondary voltage = I->secondary current x R->burden resistor)
+As it is pretty obvious that we can not use Our primary current which could in range of 30A,50A,100A etc. (Ip in fig.) as it might fry up our microcontroller we would using Secondry current as our medium (Is in fig) to give us an idea. For that to happen we will require an Burden resistor as shown. So the main idea is to measure the voltage across the burden resistor through our microcontroller and in turn get the current readings (V->secondary voltage = I->secondary current x R->burden resistor)
 
 
 For further reading->https://learn.openenergymonitor.org/electricity-monitoring/ctac/how-to-build-an-arduino-energy-monitor
