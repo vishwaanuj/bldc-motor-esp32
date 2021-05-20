@@ -12,7 +12,7 @@
 /****************************************
   Define Constants
 ****************************************/
-#define VARIABLE_LABEL1 "Current Readings" // Assing the variable label 
+#define VARIABLE_LABEL1 "Current Readings" // Acessing the variable label 
 
 #define DEVICE_LABEL "ESP32_bldc"
  
