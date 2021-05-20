@@ -31,7 +31,18 @@ As it is pretty obvious that we can use Our primary current which could in range
 
 For further reading->https://learn.openenergymonitor.org/electricity-monitoring/ctac/how-to-build-an-arduino-energy-monitor
 
+The schematic :
+
+<img width="568" alt="Capture" src="https://user-images.githubusercontent.com/28966259/118969576-d67be000-b98a-11eb-9fd7-be547bbc2ec0.PNG">
+
+
+It is to be noted the microcontroller will not be able to read the negative cycle (indicated by yellow line in the diagram on right hand )side so for that reason we are shifting it up usig the above schematic. The input can be any of the ADC pin of arduino/ESP32
+
+
 youtube link ->https://www.youtube.com/watch?v=Z3YSHhS39Bc
+
+
+
 
  
  
