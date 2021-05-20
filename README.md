@@ -19,7 +19,7 @@ __install libraries__
    2. Emonlib ->for current reading using st 030 sensor from bldc
 # --Content--   
 The present git consists of three folders for individual uses:
- 1. For checking of iot connection and sending some dummy data to check line chart
+ 1. For checking of iot connection and sending some dummy data to check line chart (esp_send_dummy)
  2. For sole reading of Bldc current readings
  3. Combined code for the above two 
 
