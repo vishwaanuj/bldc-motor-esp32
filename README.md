@@ -17,11 +17,11 @@ ___install esp32 package___
 __install libraries__
  The following libraries can be found in arduino ide->Tools->Manage Libraries
    1. PubSubClient->for mqtt communication
-   2. Emonlib ->for current reading using st 030 sensor from bldc
+   2. Emonlib ->for current reading using current and voltage sensor from bldc
 # --Content--   
 The present git consists of three folders for individual uses:
  1. For checking of iot connection and sending some dummy data to check line chart (esp_send_dummy)
- 2. For sole reading of Bldc current readings(current calc) ->this one is subjected to change according to the callinration readings please refer the site links i mentioned in        code
+ 2. For sole reading of Bldc current readings(current calc) ->this one is subjected to change according to the callibration readings please refer the site links i mentioned in        code
  3. Combined code for the above two (combined)
 # --Theory--
 <img width="394" alt="Capture" src="https://user-images.githubusercontent.com/28966259/118945734-5b5aff80-b973-11eb-8eaa-ff4f657d1c7a.PNG">
