@@ -38,6 +38,8 @@ The schematic :
 
 It is to be noted the microcontroller will not be able to read the negative cycle (indicated by yellow line in the diagram on right hand )side so for that reason we are shifting it up usig the above schematic. The input can be any of the ADC pin of arduino/ESP32
 
+The burden resistor value will be  18 Ohms if supply voltage is 3.3V(stm32 etc.) or 33 Ohms if supply voltage is 5V (arduino and esp32)
+
 
 youtube link ->https://www.youtube.com/watch?v=Z3YSHhS39Bc
 
