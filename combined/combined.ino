@@ -1,5 +1,5 @@
 
-#include <Wire.h>
+
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include "EmonLib.h"             // Include Emon Library
