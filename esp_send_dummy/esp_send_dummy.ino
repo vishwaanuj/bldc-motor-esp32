@@ -2,28 +2,37 @@
 
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include "EmonLib.h"             // Include Emon Library
+
+#define VOLT_CAL 148.7  
+#define CURRENT_CAL 62.6
+
+
+EnergyMonitor emon1;    
 
  
-#define WIFISSID "*******" // Put your WifiSSID here
+#define WIFISSID "*********" // Put your WifiSSID here
 #define PASSWORD "*********" // Put your wifi password here
-#define TOKEN "BBFF-***********************" // Put your Ubidots' TOKEN
+#define TOKEN "BBFF-************** // Put your Ubidots' TOKEN
 #define MQTT_CLIENT_NAME "ESP32_bldc_readings" // MQTT client Name, please enter your own 8-12 alphanumeric character ASCII string;
  
 /****************************************
   Define Constants
 ****************************************/
-#define VARIABLE_LABEL1 "Current Readings" // Acessing the variable label 
-
-#define DEVICE_LABEL "ESP32_bldc"
+#define VARIABLE_LABEL1 "Current Readings" // Acesssing the variable label
+#define VARIABLE_LABEL2 "Current Gauge" // Ascessing the variable label
+#define VARIABLE_LABEL_SUBSCRIBE "Switch" // Ascessing the variable label
+#define DEVICE_LABEL "ESP32"
  
-char mqttBroker[]  = "industrial.api.ubidots.com";//broker of messages
-char payload[1000]; // telling the size of payoad
-char topic1[150];// allocating the topic size
-
+char mqttBroker[]  = "industrial.api.ubidots.com";
+char payload[1000];
+char topic1[150];
+char topic2[150];
+char topicSubscribe[100];
  
 // Space to store values to send
 char str_BLDC[10];
-
+char str_Gauge[10];
  
 /****************************************
   Auxiliar Functions
@@ -31,42 +40,25 @@ char str_BLDC[10];
 WiFiClient ubidots;
 PubSubClient client(ubidots);
  
-  
-
+ 
 void callback(char* topic, byte* payload, unsigned int length)
 {
- 
- /*
-related to pubsubclient
-
-
-Subscription Callback
-If the client is used to subscribe to topics, a callback function must be provided in the constructor. 
-This function is called when new messages arrive at the client.
-
-The callback function has the following signature:
-
-void callback(const char[] topic, byte* payload, unsigned int length)
-Parameters
-topic const char[] - the topic the message arrived on
-payload byte[] - the message payload
-length unsigned int - the length of the message payload
-Internally, the client uses the same buffer for both inbound and outbound messages. After the callback function returns, 
-or if a call to either publish or subscribe is made from within the callback function, the topic and payload values passed to 
-the function will be overwritten. The application should create its own copy of the values if they are required after the callback 
-returns.
-
-*/
   char p[length + 1];
   memcpy(p, payload, length);
   p[length] = NULL;
   String message(p);
+
+  if (message == "0.0") {
+  Serial.println("switch off");
+}
+   else {
+    Serial.println("switch on");
+}
+  
   Serial.write(payload, length);
   Serial.println(topic);
 }
-
-
-
+ 
 void reconnect()
 {
   // Loop until we're reconnected
@@ -77,6 +69,7 @@ void reconnect()
     if (client.connect(MQTT_CLIENT_NAME, TOKEN, ""))
     {
       Serial.println("Connected");
+       client.subscribe(topicSubscribe);
     } else
     {
       Serial.print("Failed, rc=");
@@ -89,8 +82,7 @@ void reconnect()
 }
  
 /****************************************
-  Main Functions 
-
+  Main Functions
 ****************************************/
  
 void setup()
@@ -98,55 +90,60 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
+ 
+  // Set up oversampling and filter initialization
 
-  //-----Wifi connection-----
   WiFi.begin(WIFISSID, PASSWORD);
   Serial.println();
   Serial.print("Waiting for WiFi Connection ..............");
- 
- //check if wifi connected if not keep on trying 
   while (WiFi.status() != WL_CONNECTED)
   {
     Serial.print(".");
     delay(500);
   }
- //-------------------------
- 
- //after wifi is connected
+  WiFi.setHostname("esp32-current-monitor");
   Serial.println("");
   Serial.println("WiFi Connected");
   Serial.println("IP address: ");
-  Serial.println(WiFi.localIP()); //printing local wifi ip address
-  client.setServer(mqttBroker, 1883);//this port is fixed acc. to the udibots docs 
-  client.setCallback(callback); //calling the function callback for starting the publishing task
- //----------------
+  Serial.println(WiFi.localIP());
+  client.setServer(mqttBroker, 1883);
+  client.setCallback(callback);
+  sprintf(topicSubscribe, "/v1.6/devices/%s/%s/lv", DEVICE_LABEL, VARIABLE_LABEL_SUBSCRIBE);
+  client.subscribe(topicSubscribe);
 }
  
 void loop()
 {
- 
- // checking for the mqtt connection if not then keep on trying 
   if (!client.connected())
   {
+    client.subscribe(topicSubscribe);   
     reconnect();
   }
- //---------------------------
- 
- //------sending dummy data in for loop------
-  for (int i=0;i<15;i++){
+  for (int i=0;i<10;i++){
   float current = i;
+
+  //All the data calculation needs to be done here before publishing
   dtostrf(current, 4, 2, str_BLDC);
+  dtostrf(current*10, 4, 2, str_Gauge);
+  //--------------------------------------
+  
   sprintf(topic1, "%s%s", "/v1.6/devices/", DEVICE_LABEL);
   sprintf(payload, "%s", "");
   sprintf(payload, "{\"%s\":", VARIABLE_LABEL1);
   sprintf(payload, "%s {\"value\": %s}}", payload, str_BLDC);
-  Serial.println("Publishing BLDC Data");
+
   client.publish(topic1, payload);
-  Serial.println();
+
+  sprintf(topic2, "%s%s", "/v1.6/devices/", DEVICE_LABEL);
+  sprintf(payload, "%s", "");
+  sprintf(payload, "{\"%s\":", VARIABLE_LABEL2);
+  sprintf(payload, "%s {\"value\": %s}}", payload, str_Gauge);
+
+  client.publish(topic2, payload);
+
   client.loop();
-  delay(2000); //you change this 2 sec to 1sec(minimum can not cros beyond this) safeside 2sec
+  delay(2000);
   }
- //------------------------------------------
 
   
 }
