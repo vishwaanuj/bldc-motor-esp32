@@ -30,9 +30,10 @@ The present git consists of three folders for individual uses:
 # --Theory--
 <img width="394" alt="Capture" src="https://user-images.githubusercontent.com/28966259/118945734-5b5aff80-b973-11eb-8eaa-ff4f657d1c7a.PNG">
 
-As it is pretty obvious that we can not use Our primary current which could in range of 30A,50A,100A etc. (Ip in fig.) as it might fry up our microcontroller we would using Secondry current as our medium (Is in fig) to give us an idea. For that to happen we will require an Burden resistor as shown. So the main idea is to measure the voltage across the burden resistor through our microcontroller and in turn get the current readings (V->secondary voltage = I->secondary current x R->burden resistor)
+As it is pretty obvious that we can not use Our primary current which could in range of 30A,50A,100A etc. (Ip in fig.) as it might fry up our microcontroller we would be using Secondary current as our medium (*Is* in fig) to give us an idea. For that to happen we will require an Burden resistor as shown. So the main idea is to measure the voltage across the burden resistor through our microcontroller and in turn get the current readings (V->secondary voltage = I->secondary current x R->burden resistor)
 
 
+youtube link ->https://www.youtube.com/watch?v=Z3YSHhS39Bc
 For further reading->https://learn.openenergymonitor.org/electricity-monitoring/ctac/how-to-build-an-arduino-energy-monitor
 
 The schematic :
@@ -42,10 +43,9 @@ The schematic :
 
 It is to be noted the microcontroller will not be able to read the negative cycle (indicated by yellow line in the diagram on right hand )side so for that reason we are shifting it up usig the above schematic. The input can be any of the ADC pin of arduino/ESP32
 
-The burden resistor value will be  18 Ohms if supply voltage is 3.3V(stm32 etc.) or 33 Ohms if supply voltage is 5V (arduino and esp32)
+*note-> The burden resistor value will be  18 Ohms if supply voltage is 3.3V(stm32 etc.) or 33 Ohms if supply voltage is 5V (arduino and esp32)*
 
 
-youtube link ->https://www.youtube.com/watch?v=Z3YSHhS39Bc
 
 
 
