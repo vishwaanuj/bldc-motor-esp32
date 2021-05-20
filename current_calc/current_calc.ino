@@ -1,8 +1,16 @@
-// EmonLibrary examples openenergymonitor.org, Licence GNU GPL V3
 
-#include "EmonLib.h"             // Include Emon Library
-#define VOLT_CAL 148.7
-#define CURRENT_CAL 62.6
+#include "EmonLib.h"     // Include Emon Library
+#define VOLT_CAL 148.7   //will be particular to your project
+#define CURRENT_CAL 62.6 //will be particular to your project
+
+//// for total callibration theory->https://github.com/openenergymonitor/learn/blob/master/view/electricity-monitoring/ctac/emonlib-calibration-theory.md
+
+
+// CURRENT_CAL is calculated by the following formula :
+//(CT_ratio)/(Burden Resistance)=(100A/.05A)/33 ohms = 62.6
+
+//refer for what is ct ratio -> https://sciencing.com/determine-primary-secondary-transformer-6117755.html
+
 
 EnergyMonitor emon1;             // Create an instance
 
@@ -19,15 +27,8 @@ void loop()
   emon1.calcVI(20,2000);         // Calculate all. No.of half wavelengths (crossings), time-out
 
   float currentDraw            = emon1.Irms;             //extract Irms into Variable
-  float supplyVoltage   = emon1.Vrms;                    //extract Vrms into Variable
-
-  Serial.print("Voltage: ");
-  Serial.println(supplyVoltage);
-  
+  //float supplyVoltage   = emon1.Vrms;                    //extract Vrms into Variable
   Serial.print("Current: ");
   Serial.println(currentDraw);
 
-  Serial.print("Watts: ");
-  Serial.println(currentDraw * supplyVoltage);
-  Serial.println("\n\n");
 }
