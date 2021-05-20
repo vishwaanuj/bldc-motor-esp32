@@ -81,7 +81,7 @@ void setup()
   
  
 
-  Serial.println(currentDraw);
+
   
   WiFi.begin(WIFISSID, PASSWORD);
   Serial.println();
@@ -124,6 +124,7 @@ void loop()
   sprintf(payload, "%s {\"value\": %s}}", payload, str_BLDC);
   Serial.println("Publishing BLDC Data");
   client.publish(topic1, payload);
+  Serial.println(current);
   Serial.println();
   client.loop();
   delay(2000);
