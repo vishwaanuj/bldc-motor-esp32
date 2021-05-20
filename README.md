@@ -9,6 +9,7 @@ Why mqtt-> Message Queuing Telemetry Transport is used for data exchange between
 *further read*->https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/
 
 
+
 # --Prerequsites--
 
 ___install esp32 package___
@@ -18,6 +19,9 @@ __install libraries__
  The following libraries can be found in arduino ide->Tools->Manage Libraries
    1. PubSubClient->for mqtt communication
    2. Emonlib ->for current reading using current and voltage sensor from bldc
+__Create Account In Ubidots__
+https://ubidots.com/stem/
+
 # --Content--   
 The present git consists of three folders for individual uses:
  1. For checking of iot connection and sending some dummy data to check line chart (esp_send_dummy)
