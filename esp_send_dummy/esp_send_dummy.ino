@@ -2,13 +2,6 @@
 #include <Wire.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
-#include "EmonLib.h"             // Include Emon Library
-
-#define VOLT_CAL 148.7  
-#define CURRENT_CAL 62.6
-
-
-EnergyMonitor emon1;    
 
  
 #define WIFISSID "Vish" // Put your WifiSSID here
