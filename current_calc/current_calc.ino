@@ -4,7 +4,7 @@
 #define CURRENT_CAL 62.6 //will be particular to your project
 
 //// for total callibration theory->https://github.com/openenergymonitor/learn/blob/master/view/electricity-monitoring/ctac/emonlib-calibration-theory.md
-
+///refer to this video -> https://www.youtube.com/watch?v=Ieuqvo5qxRc for calibration purpose of voltage
 
 // CURRENT_CAL is calculated by the following formula :
 //(CT_ratio)/(Burden Resistance)=(100A/.05A)/33 ohms = 62.6
