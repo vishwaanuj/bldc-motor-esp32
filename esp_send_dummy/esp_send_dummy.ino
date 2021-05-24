@@ -13,7 +13,7 @@ EnergyMonitor emon1;
  
 #define WIFISSID "*********" // Put your WifiSSID here
 #define PASSWORD "*********" // Put your wifi password here
-#define TOKEN "BBFF-************** // Put your Ubidots' TOKEN
+#define TOKEN "BBFF-************** "// Put your Ubidots' TOKEN
 #define MQTT_CLIENT_NAME "ESP32_bldc_readings" // MQTT client Name, please enter your own 8-12 alphanumeric character ASCII string;
  
 /****************************************
@@ -92,7 +92,7 @@ void setup()
 
  
   // Set up oversampling and filter initialization
-
+WiFi.disconnect();
   WiFi.begin(WIFISSID, PASSWORD);
   Serial.println();
   Serial.print("Waiting for WiFi Connection ..............");
